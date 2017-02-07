@@ -3,7 +3,9 @@ detect_granularity <- function(date_times) {
     stop("Cannot detect granularity from just one datetime.")
   }
   differences <- diff(date_times)
-  units(differences) <- "secs"
+  if (class(differences) == "difftime") {
+    units(differences) <- "secs"
+  }
   differences <- as.numeric(differences)
   if (length(differences) > 1) {
     if (stats::var(differences) > 0) {

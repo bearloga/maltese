@@ -50,7 +50,7 @@ r_enwiki$normalized <- (r_enwiki$pageviews - normalization_constants$mean)/norma
 ## Feature Space
 
 ```{r building_features}
-mlts <- mlts_transform(r_enwiki$date, r_enwiki$normalized, p = 7, extrasAsFactors = TRUE)
+mlts <- mlts_transform(r_enwiki, date, normalized, p = 7, extras = TRUE, extrasAsFactors = TRUE)
 str(mlts)
 
 # Convert factors to dummy variables because neuralnet only supports numeric features:
@@ -77,6 +77,7 @@ nn_features <- grep("(mlts_lag_[0-9]+)|(mlts_extras_((weekday)|(month)|(monthday
 nn_formula <- as.formula(paste("y ~", paste(nn_features, collapse = " + ")))
 
 # Train:
+set.seed(0)
 nn_model <- neuralnet(
   nn_formula, mlts_dummied[training_idx, c("y", nn_features)],
   linear.output = TRUE, hidden = c(5, 3), algorithm = "sag"
@@ -126,7 +127,7 @@ new_data <- rbind(
   )
 )
 # new_data will have two rows, only the second of which we actually care about
-new_mlts <- mlts_transform(new_data$date, new_data$normalized, p = 7, extrasAsFactors = TRUE)
+new_mlts <- mlts_transform(new_data, date, normalized, p = 7, extras = TRUE, extrasAsFactors = TRUE)
 new_mlts <- cbind(
   new_mlts[-1, ], # don't need to forecast known outcome
   dummy(

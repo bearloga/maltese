@@ -31,23 +31,22 @@ We can use `mlts_transform` to convert the data into a machine learning-friendly
 
 ```R
 mlts <- mlts_transform(
-  dt = r_enwiki$date,
-  y = r_enwiki$pageviews,
+  r_enwiki, date, pageviews,
   p = 7, # how many previous points of data to use as features
-  extrasAsFactors = TRUE, # FALSE by default :D
-  granularity = "day" # optional, can be automatically detected
+  granularity = "day", # optional, can be automatically detected,
+  extras = TRUE, extrasAsFactors = TRUE # FALSE by default :D
 )
 head(mlts)
 ```
 
-|   |dt         |    y| mlts_lag_1| mlts_lag_2| mlts_lag_3| mlts_lag_4| mlts_lag_5| mlts_lag_6| mlts_lag_7|mlts_extras_monthday |mlts_extras_weekday |mlts_extras_week |mlts_extras_month |mlts_extras_year |
-|:--|:----------|----:|----------:|----------:|----------:|----------:|----------:|----------:|----------:|:--------------------|:-------------------|:----------------|:-----------------|:----------------|
-|8  |2015-10-08 | 3278|       3385|       3695|       3041|       1540|       1431|       2575|       3072|8                    |Thursday            |41               |October           |2015             |
-|9  |2015-10-09 | 2886|       3278|       3385|       3695|       3041|       1540|       1431|       2575|9                    |Friday              |41               |October           |2015             |
-|10 |2015-10-10 | 1692|       2886|       3278|       3385|       3695|       3041|       1540|       1431|10                   |Saturday            |41               |October           |2015             |
-|11 |2015-10-11 | 1902|       1692|       2886|       3278|       3385|       3695|       3041|       1540|11                   |Sunday              |41               |October           |2015             |
-|12 |2015-10-12 | 3030|       1902|       1692|       2886|       3278|       3385|       3695|       3041|12                   |Monday              |41               |October           |2015             |
-|13 |2015-10-13 | 3245|       3030|       1902|       1692|       2886|       3278|       3385|       3695|13                   |Tuesday             |41               |October           |2015             |
+|dt         |    y|mlts_extras_monthday |mlts_extras_weekday |mlts_extras_week |mlts_extras_month |mlts_extras_year | mlts_lag_1| mlts_lag_2| mlts_lag_3| mlts_lag_4| mlts_lag_5| mlts_lag_6| mlts_lag_7|
+|:----------|----:|:--------------------|:-------------------|:----------------|:-----------------|:----------------|----------:|----------:|----------:|----------:|----------:|----------:|----------:|
+|2015-10-08 | 3278|8                    |Thursday            |41               |October           |2015             |       3385|       3695|       3041|       1540|       1431|       2575|       3072|
+|2015-10-09 | 2886|9                    |Friday              |41               |October           |2015             |       3278|       3385|       3695|       3041|       1540|       1431|       2575|
+|2015-10-10 | 1692|10                   |Saturday            |41               |October           |2015             |       2886|       3278|       3385|       3695|       3041|       1540|       1431|
+|2015-10-11 | 1902|11                   |Sunday              |41               |October           |2015             |       1692|       2886|       3278|       3385|       3695|       3041|       1540|
+|2015-10-12 | 3030|12                   |Monday              |41               |October           |2015             |       1902|       1692|       2886|       3278|       3385|       3695|       3041|
+|2015-10-13 | 3245|13                   |Tuesday             |41               |October           |2015             |       3030|       1902|       1692|       2886|       3278|       3385|       3695|
 
 ### Results
 

@@ -4,21 +4,26 @@
 \alias{mlts_transform}
 \title{Transform a time series to a machine learning-friendly format}
 \usage{
-mlts_transform(dt, y, p = 1, xreg = NULL, granularity = NULL,
-  extrasAsFactors = FALSE, start = c("Mon", "Sun"))
+mlts_transform(.data, .dt, .y, p = 1, xreg = NULL, granularity = NULL,
+  extras = FALSE, extrasAsFactors = FALSE, start = c("Mon", "Sun"))
 }
 \arguments{
-\item{dt}{Dates (or date-times) corresponding to time series \code{y}}
+\item{.data}{A tidy data.frame/tbl}
 
-\item{y}{an evenly spaced time series as a numeric vector or factor}
+\item{.dt}{Name of the column in \code{.data} containing the date-times;
+does not need to be a character}
+
+\item{.y}{Name of the column in \code{.data} containing an evenly spaced
+time series as a numeric vector or factor; does not need to be a character}
 
 \item{p}{Number of previous observations to turn into features (think AR(p))}
 
-\item{xreg}{Optionally, a vector or matrix of external regressors, which
-must have the same number of rows as y}
+\item{xreg}{A character vector of column names of external regressors in \code{.data}}
 
 \item{granularity}{One of: seconds, minutes, hours, days, weeks, months,
 quarters, years. If not specified, will attempt to detect.}
+
+\item{extras}{Whether maltese will create new features (like day of week)}
 
 \item{extrasAsFactors}{Whether to output extra features as factors or
 numeric (default). If TRUE, some (like day of week or month) will be
@@ -42,5 +47,5 @@ Performs the necessary transformations to make a univariate
 }
 \examples{
 data("r_enwiki", package = "maltese")
-mlts <- mlts_transform(head(r_enwiki$date), head(r_enwiki$pageviews))
+mlts <- mlts_transform(head(r_enwiki), date, pageviews)
 }
