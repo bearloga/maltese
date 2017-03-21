@@ -31,7 +31,7 @@ mlts_transform <- function(.data, .dt, .y, p = 1, xreg = NULL, granularity = NUL
   dt <- .data[, deparse(substitute(.dt)), drop = TRUE]
   y <- .data[, deparse(substitute(.y)), drop = TRUE]
   if (!is.null(xreg)) {
-    xreg <- .data[, .xreg, drop = FALSE]
+    xreg <- .data[, xreg, drop = FALSE]
   }
   if (typeof(dt) == "character") {
     message("Provided 'dt' is a character vector, coercing to POSIXct")
