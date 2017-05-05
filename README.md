@@ -56,4 +56,6 @@ See [the vignette](https://bearloga.github.io/maltese/neuralnet.html) for a deta
 
 ## Additional Information
 
+Users of _maltese_ may also be interested in _[timekit](https://business-science.github.io/timekit/)_ ([available on CRAN](https://cran.r-project.org/package=timekit)) which provides several utility functions for working with and manipulating time series data into a ML-friendly form.
+
 Please note that this project is released with a [Contributor Code of Conduct](https://github.com/bearloga/maltese/blob/master/CONDUCT.md). By participating in this project you agree to abide by its terms.
