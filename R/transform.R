@@ -28,8 +28,8 @@
 #' mlts <- mlts_transform(head(r_enwiki), date, pageviews)
 #' @export
 mlts_transform <- function(.data, .dt, .y, p = 1, xreg = NULL, granularity = NULL, extras = FALSE, extrasAsFactors = FALSE, start = c("Mon", "Sun")) {
-  dt <- .data[, deparse(substitute(.dt)), drop = TRUE]
-  y <- .data[, deparse(substitute(.y)), drop = TRUE]
+  dt <- .data[[deparse(substitute(.dt))]]
+  y <- .data[[deparse(substitute(.y))]]
   if (!is.null(xreg)) {
     xreg <- .data[, xreg, drop = FALSE]
   }
