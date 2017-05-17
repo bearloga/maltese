@@ -17,8 +17,7 @@ The daily pageviews of the
 r_enwiki <- pageviews::article_pageviews(
   project = "en.wikipedia", article = "R (programming language)",
   platform = "desktop", user_type = "user",
-  start = "2015100100", end = "2017013000"
-)[, c("date", "views")]
+  end = "2017051600")[, c("date", "views")]
 names(r_enwiki) <- c("date", "pageviews")
 }
 }
