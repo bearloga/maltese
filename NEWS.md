@@ -1,3 +1,9 @@
+mlts 0.1.3
+----------
+* Fixed typos in `mlts_transform()` function parameter definitions to bring them inline with function variable default values as this was confusing.
+* Fixed an error generated due to `names()` attribute not being the same length as the vector being passed when computing the granularity list length in `mlts_transform()` function.
+* Removed `timekit` dependency.
+
 mlts 0.1.1
 ----------
 
