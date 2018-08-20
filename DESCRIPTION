@@ -17,6 +17,7 @@ Suggests:
     knitr,
     rmarkdown,
     tidyverse,
+    timetk,
     dummy,
     mlr,
     nnet,
