@@ -1,5 +1,7 @@
 # maltese: machine learning for time series
 
+[![Build Status](https://travis-ci.org/bearloga/maltese.svg?branch=master)](https://travis-ci.org/bearloga/maltese)
+
 ## Installing
 
 ```R
