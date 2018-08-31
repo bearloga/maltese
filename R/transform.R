@@ -9,8 +9,8 @@
 #'   time series as a numeric vector or factor; does not need to be a character
 #' @param p Number of previous observations to turn into features (think AR(p))
 #' @param xreg A character vector of column names of external regressors in \code{.data}
-#' @param granularity One of: seconds, minutes, hours, days, weeks, months,
-#'   quarters, years. If not specified, will attempt to detect.
+#' @param granularity One of: second, minute, hour, day, week, month,
+#'   quarter, year. If not specified, will attempt to detect.
 #' @param extras Whether maltese will create new features (like day of week)
 #' @param extrasAsFactors Whether to output extra features as factors or
 #'   numeric (default). If TRUE, some (like day of week or month) will be
@@ -49,7 +49,7 @@ mlts_transform <- function(.data, .dt, .y, p = 1, xreg = NULL, granularity = NUL
       message("Granularity detected as \"", granularity, "\".")
     }
     granularity <- as.numeric(factor(granularity, levels = c("second", "minute", "hour", "day", "week", "month", "year")))
-    extra_features <- as.list(numeric(granularity))
+    extra_features <- as.list(numeric(7 - (granularity - 1)))
     names(extra_features) <- c("second", "minute", "hour", "day", "week", "month", "year")[(granularity):7]
     if (extrasAsFactors) {
       extra_features[["year"]] <- data.frame(mlts_extras_year = ordered(lubridate::year(dt)))

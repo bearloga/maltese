@@ -4,8 +4,9 @@
 \alias{mlts_transform}
 \title{Transform a time series to a machine learning-friendly format}
 \usage{
-mlts_transform(.data, .dt, .y, p = 1, xreg = NULL, granularity = NULL,
-  extras = FALSE, extrasAsFactors = FALSE, start = c("Mon", "Sun"))
+mlts_transform(.data, .dt, .y, p = 1, xreg = NULL,
+  granularity = NULL, extras = FALSE, extrasAsFactors = FALSE,
+  start = c("Mon", "Sun"))
 }
 \arguments{
 \item{.data}{A tidy data.frame/tbl}
@@ -20,8 +21,8 @@ time series as a numeric vector or factor; does not need to be a character}
 
 \item{xreg}{A character vector of column names of external regressors in \code{.data}}
 
-\item{granularity}{One of: seconds, minutes, hours, days, weeks, months,
-quarters, years. If not specified, will attempt to detect.}
+\item{granularity}{One of: second, minute, hour, day, week, month,
+quarter, year. If not specified, will attempt to detect.}
 
 \item{extras}{Whether maltese will create new features (like day of week)}
 
