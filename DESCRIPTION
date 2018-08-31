@@ -5,7 +5,8 @@ Version: 0.1.3
 Authors@R: c(
     person("Mikhail", "Popov", email = "mikhail@wikimedia.org",
            role = c("aut", "cre"), comment = "@bearloga on Twitter"),
-    person("Wikimedia Foundation", role = "cph")
+    person("Wikimedia Foundation", role = "cph"),
+    person("Mustafa", "Hasanbulli", role = "ctb")
     )
 Description: Tools to transform a time series into a machine learning-friendly
     format.
