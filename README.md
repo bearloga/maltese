@@ -5,8 +5,8 @@
 ## Installing
 
 ```R
-# install.packages("devtools")
-devtools::install_github("bearloga/maltese")
+# install.packages("remotes")
+remotes::install_github("bearloga/maltese")
 ```
 
 ## Example
