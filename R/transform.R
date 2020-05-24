@@ -8,6 +8,7 @@
 #' @param .y Name of the column in \code{.data} containing an evenly spaced
 #'   time series as a numeric vector or factor; does not need to be a character
 #' @param p Number of previous observations to turn into features (think AR(p))
+#' @param h Number of future observations to turn in columns (useful for multi-target models)
 #' @param xreg A character vector of column names of external regressors in \code{.data}
 #' @param granularity One of: second, minute, hour, day, week, month,
 #'   quarter, year. If not specified, will attempt to detect.
@@ -21,13 +22,14 @@
 #'     \item{dt}{The date or date-time (same as \code{dt})}
 #'     \item{y}{The time series}
 #'     \item{mlts_lag_k}{The previous k-th observation}
+#'     \item{mlts_lead_k}{The future k-th observation}
 #'     \item{mlts_extras_?}{Extra features like hour of day, day of the week, month of the year, etc.}
 #'   }
 #' @examples
 #' data("r_enwiki", package = "maltese")
-#' mlts <- mlts_transform(head(r_enwiki), date, pageviews)
+#' mlts <- mlts_transform(head(r_enwiki), date, pageviews, h = 1)
 #' @export
-mlts_transform <- function(.data, .dt, .y, p = 1, xreg = NULL, granularity = NULL, extras = FALSE, extrasAsFactors = FALSE, start = c("Mon", "Sun")) {
+mlts_transform <- function(.data, .dt, .y, p = 1, h = 0, xreg = NULL, granularity = NULL, extras = FALSE, extrasAsFactors = FALSE, start = c("Mon", "Sun")) {
   dt <- .data[[deparse(substitute(.dt))]]
   y <- .data[[deparse(substitute(.y))]]
   if (!is.null(xreg)) {
@@ -42,6 +44,15 @@ mlts_transform <- function(.data, .dt, .y, p = 1, xreg = NULL, granularity = NUL
     return(as.data.frame(dplyr::lag(y, k)))
   }))
   colnames(wide) <- paste0("mlts_lag_", 1:p)
+
+  leads <- NULL
+  if (h > 0) {
+    leads <- do.call(cbind, lapply(1:h, function(k) {
+      return(as.data.frame(dplyr::lead(y, k)))
+    }))
+    colnames(leads) <- paste0("mlts_lead_", 1:h)
+  }
+
   if (extras) {
     if (is.null(granularity)) {
       message("Attempting to detect granularity based on index...")
@@ -132,5 +143,5 @@ mlts_transform <- function(.data, .dt, .y, p = 1, xreg = NULL, granularity = NUL
     extra_features <- NULL
   }
   # Output:
-  return(dplyr::bind_cols(data.frame(dt = dt, y = y), xreg, extra_features, as.data.frame(wide))[-(1:p), ])
+  return(dplyr::bind_cols(data.frame(dt = dt, y = y), xreg, extra_features, as.data.frame(wide), as.data.frame(leads))[-(1:p), ])
 }

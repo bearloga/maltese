@@ -4,7 +4,7 @@
 \alias{mlts_transform}
 \title{Transform a time series to a machine learning-friendly format}
 \usage{
-mlts_transform(.data, .dt, .y, p = 1, xreg = NULL,
+mlts_transform(.data, .dt, .y, p = 1, h = 0, xreg = NULL,
   granularity = NULL, extras = FALSE, extrasAsFactors = FALSE,
   start = c("Mon", "Sun"))
 }
@@ -18,6 +18,8 @@ does not need to be a character}
 time series as a numeric vector or factor; does not need to be a character}
 
 \item{p}{Number of previous observations to turn into features (think AR(p))}
+
+\item{h}{Number of future observations to turn in columns (useful for multi-target models)}
 
 \item{xreg}{A character vector of column names of external regressors in \code{.data}}
 
@@ -38,6 +40,7 @@ A \code{data.frame} suitable for supervised learners with columns:
     \item{dt}{The date or date-time (same as \code{dt})}
     \item{y}{The time series}
     \item{mlts_lag_k}{The previous k-th observation}
+    \item{mlts_lead_k}{The future k-th observation}
     \item{mlts_extras_?}{Extra features like hour of day, day of the week, month of the year, etc.}
   }
 }
@@ -48,5 +51,5 @@ Performs the necessary transformations to make a univariate
 }
 \examples{
 data("r_enwiki", package = "maltese")
-mlts <- mlts_transform(head(r_enwiki), date, pageviews)
+mlts <- mlts_transform(head(r_enwiki), date, pageviews, h = 1)
 }
